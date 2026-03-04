@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Halifax-based photography, design &amp; photo restoration by Ian Kehayes. Portraits, maternity, landscapes, and fine art prints available.">
+    <title>Harbour Hues Media - East Coast Photography, Design & Photo Restoration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a4567;
+            --secondary: #f4a261;
+            --accent: #e76f51;
+            --bg: #f8f9fa;
+            --text: #2c3e50;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(26,69,103,0.08); transition: box-shadow 0.3s;
+        }
+        nav.scrolled { box-shadow: 0 4px 24px rgba(26,69,103,0.10); }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 70px;
+            transition: height 0.3s;
+        }
+        nav.scrolled .nav-inner { height: 52px; }
+        .nav-brand {
+            font-family: 'Playfair Display', serif; font-size: 1.2rem;
+            color: var(--primary); text-decoration: none; letter-spacing: 0.04em; white-space: nowrap;
+        }
+        .nav-brand span { color: var(--secondary); font-style: italic; }
+
+        /* Full desktop links — hidden when scrolled */
+        .nav-links { list-style: none; display: flex; gap: 0; align-items: center; }
+        nav.scrolled .nav-links { display: none; }
+        .nav-links li a {
+            text-decoration: none; color: var(--text); font-weight: 400;
+            font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 0.4rem 1.1rem; display: block; position: relative; transition: color 0.3s;
+        }
+        .nav-links li a::after {
+            content: ''; position: absolute; bottom: -2px; left: 1.1rem; right: 1.1rem;
+            height: 1px; background: var(--secondary);
+            transform: scaleX(0); transform-origin: center; transition: transform 0.3s;
+        }
+        .nav-links li a:hover { color: var(--primary); }
+        .nav-links li a:hover::after { transform: scaleX(1); }
+        .nav-links li:last-child a {
+            background: var(--primary); color: var(--white); border-radius: 30px;
+            padding: 0.45rem 1.3rem; letter-spacing: 0.1em; margin-left: 0.5rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .nav-links li:last-child a::after { display: none; }
+        .nav-links li:last-child a:hover { background: var(--accent); transform: translateY(-1px); }
+
+        /* Hamburger button — hidden at top on desktop, shown when scrolled or on mobile */
+        .hamburger {
+            display: none; flex-direction: column; justify-content: center; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 0.4rem;
+            width: 36px; height: 36px; flex-shrink: 0;
+        }
+        .hamburger span {
+            display: block; width: 22px; height: 2px; border-radius: 2px;
+            background: var(--primary); transition: all 0.3s;
+        }
+        nav.scrolled .hamburger { display: flex; }
+        nav.nav-open .hamburger span:nth-child(1) { transform: rotate(45deg) translate(5px, 4px); }
+        nav.nav-open .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        nav.nav-open .hamburger span:nth-child(3) { transform: rotate(-45deg) translate(5px, -4px); }
+
+        /* Dropdown — appears below compact nav on click */
+        .nav-dropdown {
+            display: none; position: absolute; top: 52px; left: 0; right: 0;
+            background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(26,69,103,0.08);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        nav.nav-open .nav-dropdown { display: block; }
+        .nav-dropdown ul { list-style: none; padding: 0.5rem 0 0.75rem; }
+        .nav-dropdown ul li a {
+            display: block; padding: 0.75rem 2rem;
+            color: var(--text); text-decoration: none;
+            font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+            transition: color 0.2s, background 0.2s;
+        }
+        .nav-dropdown ul li a:hover { color: var(--primary); background: rgba(26,69,103,0.05); }
+        .nav-dropdown ul li:last-child a {
+            display: inline-block; margin: 0.35rem 2rem;
+            background: var(--primary); color: white; border-radius: 30px;
+            padding: 0.5rem 1.5rem; letter-spacing: 0.1em;
+            transition: background 0.3s;
+        }
+        .nav-dropdown ul li:last-child a:hover { background: var(--accent); }
+
+        /* ── Sections ── */
+        section {
+            padding: 5rem 2rem 4rem;
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+        }
+        section h2 { font-size: 2.6rem; color: var(--primary); margin-bottom: 0.6rem; }
+        #photo h2, #restoration h2, #design h2 {
+            border-bottom: 2px solid var(--secondary);
+            display: inline-block; padding-bottom: 0.5rem;
+        }
+        section > p { font-size: 1.1rem; color: #6b7c8d; max-width: 600px; margin-bottom: 3rem; }
+
+        /* ── Hero ── */
+        #hero {
+            min-height: 100vh; justify-content: center; padding: 2rem;
+            background-color: var(--primary);
+            background-image: linear-gradient(rgba(15,35,55,0.55), rgba(15,35,55,0.65)), url('img/nature%20and%20landscapes/8D531ECE-AADE-4583-8AED-E96567D45D4C_1_105_c%20Large.jpeg');
+            background-size: cover; background-position: center; color: var(--white);
+        }
+        #hero h1 { font-size: 4rem; margin-bottom: 1rem; color: var(--white); }
+        #hero h1 .hero-accent { color: var(--secondary); font-style: italic; }
+        #hero p { font-size: 1.5rem; margin-bottom: 2.5rem; color: rgba(255,255,255,0.9); }
+        .btn-group { display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+        .btn { display: inline-block; padding: 0.95rem 2.2rem; background: var(--white); color: var(--primary); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.05em; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .btn-secondary { background: transparent; border: 2px solid rgba(255,255,255,0.8); color: var(--white); box-shadow: none; }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* ── Portfolio grid ── */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; width: 100%; }
+        .portfolio-item { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+        .portfolio-item:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .portfolio-item img { width: 100%; height: 240px; object-fit: cover; object-position: center; display: block; background: #e8edf2; cursor: zoom-in; }
+        .portfolio-item.face-crop img { object-position: 50% 15%; }
+
+        /* ── Photo subsections ── */
+        .photo-subsection { width: 100%; max-width: 1200px; margin-bottom: 3rem; text-align: center; }
+        .photo-subsection:last-child { margin-bottom: 0; }
+        .photo-subsection h3 {
+            font-size: 1.8rem; color: var(--primary); margin-bottom: 0.4rem;
+            padding-bottom: 0.5rem; border-bottom: 2px solid var(--secondary); display: inline-block;
+        }
+        .photo-subsection .sub-desc { font-size: 1rem; color: #6b7c8d; margin-bottom: 1.5rem; font-style: italic; }
+        .subsection-btns { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 1.2rem; }
+        .prints-link { display: inline-block; padding: 0.6rem 1.5rem; background: var(--primary); color: var(--white); text-decoration: none; border-radius: 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.3s, transform 0.2s; }
+        .prints-link:hover { background: var(--accent); transform: translateY(-2px); }
+        .gallery-link { display: inline-block; padding: 0.6rem 1.5rem; background: transparent; color: var(--primary); text-decoration: none; border-radius: 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid var(--primary); transition: background 0.3s, color 0.3s, transform 0.2s; }
+        .gallery-link:hover { background: var(--primary); color: var(--white); transform: translateY(-2px); }
+
+        /* ── Before/After ── */
+        .before-after-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; max-width: 1200px; width: 100%; }
+        .before-after-item { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+        .before-after-item:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .ba-images { display: grid; grid-template-columns: 1fr 1fr; }
+        .ba-col img { width: 100%; height: 220px; object-fit: cover; object-position: 50% 15%; display: block; background: #e8edf2; cursor: zoom-in; }
+
+        /* ── About ── */
+        .about-bio { font-size: 1.05rem; color: #4a6070; max-width: 700px; line-height: 1.8; margin-bottom: 2rem; text-align: center; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 0.5rem; margin-bottom: 2rem; max-width: 700px; width: 100%; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 3rem; font-weight: 700; color: var(--secondary); font-family: 'Playfair Display', serif; }
+
+        /* ── Contact ── */
+        .contact-btns { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+        .btn-booking { display: inline-block; padding: 1rem 2.8rem; background: var(--secondary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; letter-spacing: 0.05em; transition: transform 0.3s, background 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(244,162,97,0.35); }
+        .btn-booking:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(231,111,81,0.35); }
+        .btn-booking-blue { background: var(--primary); box-shadow: 0 4px 15px rgba(26,69,103,0.25); }
+        .btn-booking-blue:hover { background: #15374f; box-shadow: 0 8px 25px rgba(26,69,103,0.35); }
+        .contact-note { font-size: 1rem; color: #6b7c8d; max-width: 600px; width: 100%; text-align: center; margin-bottom: 1.2rem; }
+        .form-divider { width: 100%; max-width: 600px; border: none; border-top: 1px solid #dde3ea; margin-bottom: 1.5rem; }
+        form { max-width: 600px; width: 100%; display: flex; flex-direction: column; gap: 1rem; }
+        input, textarea, select { padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 0.95rem; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); }
+        button[type="submit"] { padding: 1rem; background: var(--secondary); color: var(--white); border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 1rem; letter-spacing: 0.05em; transition: background 0.3s; }
+        button[type="submit"]:hover { background: var(--accent); }
+
+        footer { background: var(--primary); color: var(--white); padding: 2rem; text-align: center; }
+
+        /* ── Lightbox ── */
+        .lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; align-items: center; justify-content: center; cursor: pointer; }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-img { max-width: 90vw; max-height: 88vh; border-radius: 4px; box-shadow: 0 0 60px rgba(0,0,0,0.5); cursor: default; }
+        .lightbox-close { position: absolute; top: 1.5rem; right: 2rem; font-size: 2.5rem; color: white; cursor: pointer; line-height: 1; background: none; border: none; font-family: sans-serif; transition: color 0.2s; }
+        .lightbox-close:hover { color: var(--secondary); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            /* Mobile nav: always compact with hamburger */
+            .nav-inner { height: 60px !important; }
+            .nav-brand { font-size: 1.05rem; }
+            .nav-links { display: none !important; }
+            .hamburger { display: flex !important; }
+            .nav-dropdown { top: 60px !important; }
+            /* Layout */
+            #hero h1 { font-size: 2.5rem; }
+            section h2 { font-size: 2rem; }
+            .photo-subsection h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="#hero" class="nav-brand">Harbour <span>Hues</span> Media</a>
+            <!-- Full horizontal links (desktop, top of page) -->
+            <ul class="nav-links">
+                <li><a href="#photo">Photography</a></li>
+                <li><a href="#restoration">Photo Restoration</a></li>
+                <li><a href="#design">Design</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <!-- Hamburger (shown when scrolled or on mobile) -->
+            <button class="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <!-- Dropdown menu -->
+        <div class="nav-dropdown">
+            <ul>
+                <li><a href="#photo">Photography</a></li>
+                <li><a href="#restoration">Photo Restoration</a></li>
+                <li><a href="#design">Design</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <h1>Harbour <span class="hero-accent">Hues</span> Media</h1>
+        <p>Capturing East Coast vibes through photography, design, and photo restoration. Prints &amp; custom work available.</p>
+        <div class="btn-group">
+            <a href="#contact" class="btn">Book Now</a>
+            <a href="#photo" class="btn btn-secondary">View Portfolio</a>
+        </div>
+    </section>
+
+    <section id="photo">
+        <h2>Photography</h2>
+        <p>East Coast imagery crafted with care, available as prints, digital downloads, or custom sessions.</p>
+
+        <div class="photo-subsection">
+            <h3>Portraits</h3>
+            <p class="sub-desc">Custom portrait sessions tailored to you. Inquire for availability and pricing.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item face-crop"><img src="img/portraits/IMG_7089%20Large.jpeg" alt="Portrait" loading="lazy"></div>
+                <div class="portfolio-item face-crop"><img src="img/portraits/IMG_7359%20Large.jpeg" alt="Portrait" loading="lazy"></div>
+                <div class="portfolio-item face-crop"><img src="img/portraits/IMG_0977%20Large.jpeg" alt="Portrait" loading="lazy"></div>
+            </div>
+            <div class="subsection-btns">
+                <a href="portraits.html" class="gallery-link">View Full Gallery &rarr;</a>
+            </div>
+        </div>
+
+        <div class="photo-subsection">
+            <h3>Maternity &amp; Events</h3>
+            <p class="sub-desc">Milestone moments captured beautifully. Custom packages available upon request.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item face-crop"><img src="img/maternity-events/F2D4AB1E-C0C4-4294-B73E-B6FF247A4640_1_102_a%20Large.jpeg" alt="Maternity &amp; Events" loading="lazy"></div>
+                <div class="portfolio-item face-crop"><img src="img/maternity-events/IMG_8249%20Large.jpeg" alt="Maternity &amp; Events" loading="lazy"></div>
+                <div class="portfolio-item face-crop"><img src="img/maternity-events/IMG_8997%20Large.jpeg" alt="Maternity &amp; Events" loading="lazy"></div>
+            </div>
+            <div class="subsection-btns">
+                <a href="maternity-events.html" class="gallery-link">View Full Gallery &rarr;</a>
+            </div>
+        </div>
+
+        <div class="photo-subsection">
+            <h3>Landscapes, Nature, and Animals</h3>
+            <p class="sub-desc">Nova Scotia's coastline and countryside, available as fine art prints, mugs, calendars, and more.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><img src="img/nature%20and%20landscapes/5E155B4F-C9FC-44C9-9B60-8B0F69383DF2_1_105_c%20Large.jpeg" alt="Landscape" loading="lazy"></div>
+                <div class="portfolio-item"><img src="img/nature%20and%20landscapes/744A0812-882B-463D-B134-F4AC2678BD8E_1_105_c%20Large.jpeg" alt="Landscape" loading="lazy"></div>
+                <div class="portfolio-item"><img src="img/nature%20and%20landscapes/CCB3F904-D1B7-4884-BE3B-295F6498FE76_1_105_c%20Large.jpeg" alt="Landscape" loading="lazy"></div>
+            </div>
+            <div class="subsection-btns">
+                <a href="landscapes.html" class="gallery-link">View Full Gallery &rarr;</a>
+                <a href="#" class="prints-link">Order Prints &amp; Merch &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="restoration">
+        <h2>Photo Restoration</h2>
+        <p>Bringing old and damaged photographs back to life. Colour correction, scratch removal, and full restorations.</p>
+        <div class="before-after-grid">
+            <div class="before-after-item">
+                <div class="ba-images">
+                    <div class="ba-col"><img src="img/restoration/photo%201%20before%20Large.jpeg" alt="Before restoration" loading="lazy"></div>
+                    <div class="ba-col"><img src="img/restoration/photo%201%20after%20Large.jpeg" alt="After restoration" loading="lazy"></div>
+                </div>
+            </div>
+            <div class="before-after-item">
+                <div class="ba-images">
+                    <div class="ba-col"><img src="img/restoration/photo%204%20before%20Large.jpeg" alt="Before restoration" loading="lazy"></div>
+                    <div class="ba-col"><img src="img/restoration/photo%204%20after%20Large.jpeg" alt="After restoration" loading="lazy"></div>
+                </div>
+            </div>
+            <div class="before-after-item">
+                <div class="ba-images">
+                    <div class="ba-col"><img src="img/restoration/photo%207%20before%20Large.jpeg" alt="Before restoration" loading="lazy"></div>
+                    <div class="ba-col"><img src="img/restoration/photo%207%20after%20Large.jpeg" alt="After restoration" loading="lazy"></div>
+                </div>
+            </div>
+        </div>
+        <div class="subsection-btns" style="margin-top: 2rem;">
+            <a href="restoration.html" class="gallery-link">View Full Gallery &rarr;</a>
+        </div>
+    </section>
+
+    <section id="design">
+        <h2>Design</h2>
+        <p>Bespoke designs for your upcoming brand or business.</p>
+        <div class="portfolio-grid">
+            <div class="portfolio-item"><img src="img/design/Aurora_logo_colour%20Sign%2025x36%20Large.jpeg" alt="Design work" loading="lazy"></div>
+            <div class="portfolio-item"><img src="img/design/6BF6CE44-43C6-4FB9-B802-F1D74440CC37_1_105_c%20Large.jpeg" alt="Design work" loading="lazy"></div>
+            <div class="portfolio-item"><img src="img/design/IMG_6578%20Large.jpeg" alt="Design work" loading="lazy"></div>
+        </div>
+        <div class="subsection-btns" style="margin-top: 2rem;">
+            <a href="design.html" class="gallery-link">View Full Gallery &rarr;</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Harbour Hues</h2>
+        <p class="about-bio">Hi, my name is Ian Kehayes. I am a Halifax-based freelancer blending East Coast inspiration with pro media skills. I have over a decade of experience with photography, videography, and all things media. I am happy to chat about any and all things media and tech so drop me a line using the contact form below &mdash; you can also view my personal website and work portfolio by clicking the button below!</p>
+        <div class="stats-grid">
+            <div class="stat"><div class="stat-number">500+</div><div>Images Captured</div></div>
+            <div class="stat"><div class="stat-number">50+</div><div>Projects</div></div>
+            <div class="stat"><div class="stat-number">NS</div><div>East Coast Proud</div></div>
+        </div>
+        <a href="https://iankehayes.ca" target="_blank" rel="noopener" class="gallery-link">Visit Personal Portfolio Website &rarr;</a>
+    </section>
+
+    <section id="contact">
+        <div class="contact-btns">
+            <a href="#contact" class="btn-booking">Book Now</a>
+            <a href="#" class="btn-booking btn-booking-blue">Order Prints &amp; Merch</a>
+        </div>
+        <h2>Get in Touch</h2>
+        <p class="contact-note">For all other inquiries related to print sessions or collabs.</p>
+        <hr class="form-divider">
+        <form id="contactForm" action="https://formspree.io/f/mpqjgejv" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <select name="service" required>
+                <option value="">Service</option>
+                <option>Photography: Portrait</option>
+                <option>Photography: Maternity/Events</option>
+                <option>Photography: Landscapes/Prints</option>
+                <option>Design</option>
+                <option>Photo Restoration</option>
+                <option>Prints/Merch</option>
+            </select>
+            <textarea name="message" placeholder="Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Harbour Hues Media. Halifax, NS. <a href="mailto:hello@harbourhuesmedia.ca" style="color: var(--secondary);">hello@harbourhuesmedia.ca</a></p>
+    </footer>
+
+    <div id="lightbox" class="lightbox-overlay">
+        <button class="lightbox-close">&times;</button>
+        <img id="lightbox-img" class="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        const navEl = document.querySelector('nav');
+        const hamburger = document.querySelector('.hamburger');
+
+        // Hamburger toggle
+        hamburger.addEventListener('click', () => navEl.classList.toggle('nav-open'));
+
+        // Close dropdown when a dropdown link is clicked
+        document.querySelectorAll('.nav-dropdown a').forEach(link => {
+            link.addEventListener('click', () => navEl.classList.remove('nav-open'));
+        });
+
+        // Close when clicking outside the nav
+        document.addEventListener('click', e => {
+            if (!navEl.contains(e.target)) navEl.classList.remove('nav-open');
+        });
+
+        // Scroll: toggle compact nav, close open dropdown when returning to top
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY > 80;
+            navEl.classList.toggle('scrolled', scrolled);
+            if (!scrolled) navEl.classList.remove('nav-open');
+        });
+
+        // Smooth scroll for all anchor links (both nav-links and dropdown)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Contact form handled natively by Formspree
+
+        // Lightbox
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+
+        function openLightbox(src, alt) {
+            lbImg.src = src; lbImg.alt = alt || '';
+            lb.classList.add('active'); document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            lb.classList.remove('active'); lbImg.src = ''; document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.portfolio-item img, .ba-col img').forEach(img => {
+            img.addEventListener('click', () => openLightbox(img.src, img.alt));
+        });
+        lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+        document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    </script>
+</body>
+</html>
