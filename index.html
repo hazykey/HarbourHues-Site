@@ -24,15 +24,22 @@
         /* ── Nav ── */
         nav {
             position: fixed; top: 0; width: 100%;
-            background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.97);
             z-index: 1000;
-            border-bottom: 1px solid rgba(26,69,103,0.08); transition: box-shadow 0.3s;
+            border-bottom: 1px solid rgba(26,69,103,0.08);
+            transition: box-shadow 0.3s;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        /* backdrop-filter only on desktop where GPU is powerful enough */
+        @media (min-width: 769px) {
+            nav { backdrop-filter: blur(12px); }
         }
         nav.scrolled { box-shadow: 0 4px 24px rgba(26,69,103,0.10); }
         .nav-inner {
             display: flex; align-items: center; justify-content: space-between;
             max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 70px;
-            transition: height 0.3s;
+            /* No height transition — animating height triggers layout reflow */
         }
         nav.scrolled .nav-inner { height: 52px; }
         .nav-brand {
@@ -390,12 +397,19 @@
             if (!navEl.contains(e.target)) navEl.classList.remove('nav-open');
         });
 
-        // Scroll: toggle compact nav, close open dropdown when returning to top
+        // Scroll: toggle compact nav — passive:true lets browser scroll freely without
+        // waiting for JS. rAF ensures DOM writes happen at most once per frame.
+        let rafPending = false;
         window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY > 80;
-            navEl.classList.toggle('scrolled', scrolled);
-            if (!scrolled) navEl.classList.remove('nav-open');
-        });
+            if (rafPending) return;
+            rafPending = true;
+            requestAnimationFrame(() => {
+                const scrolled = window.scrollY > 80;
+                navEl.classList.toggle('scrolled', scrolled);
+                if (!scrolled) navEl.classList.remove('nav-open');
+                rafPending = false;
+            });
+        }, { passive: true });
 
         // Smooth scroll for all anchor links (both nav-links and dropdown)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
