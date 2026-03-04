@@ -166,6 +166,17 @@
         .before-after-item:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
         .ba-images { display: grid; grid-template-columns: 1fr 1fr; }
         .ba-col img { width: 100%; height: 220px; object-fit: cover; object-position: 50% 15%; display: block; background: #e8edf2; cursor: zoom-in; }
+        @media (max-width: 640px) { .before-after-grid { grid-template-columns: 1fr; } }
+
+        /* ── Compare lightbox ── */
+        .lightbox-compare { display: flex; gap: 1.5rem; align-items: flex-start; max-width: 94vw; cursor: default; }
+        .compare-col { flex: 1; text-align: center; }
+        .compare-label { color: rgba(255,255,255,0.65); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
+        .compare-col img { max-height: 78vh; max-width: 44vw; border-radius: 4px; display: block; margin: 0 auto; object-fit: contain; }
+        @media (max-width: 600px) {
+            .lightbox-compare { flex-direction: column; align-items: center; gap: 0.75rem; max-height: 88vh; overflow-y: auto; }
+            .compare-col img { max-width: 88vw; max-height: 36vh; }
+        }
 
         /* ── About ── */
         .about-bio { font-size: 1.05rem; color: #4a6070; max-width: 700px; line-height: 1.8; margin-bottom: 2rem; text-align: center; }
@@ -378,6 +389,16 @@
     <div id="lightbox" class="lightbox-overlay">
         <button class="lightbox-close">&times;</button>
         <img id="lightbox-img" class="lightbox-img" src="" alt="">
+        <div id="lightbox-compare" class="lightbox-compare" style="display:none;">
+            <div class="compare-col">
+                <div class="compare-label">Before</div>
+                <img id="compare-before" src="" alt="Before restoration">
+            </div>
+            <div class="compare-col">
+                <div class="compare-label">After</div>
+                <img id="compare-after" src="" alt="After restoration">
+            </div>
+        </div>
     </div>
 
     <script>
@@ -425,20 +446,50 @@
         // Contact form handled natively by Formspree
 
         // Lightbox
-        const lb = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightbox-img');
+        const lb           = document.getElementById('lightbox');
+        const lbImg        = document.getElementById('lightbox-img');
+        const comparePanel = document.getElementById('lightbox-compare');
+        const compareBefore = document.getElementById('compare-before');
+        const compareAfter  = document.getElementById('compare-after');
 
         function openLightbox(src, alt) {
             lbImg.src = src; lbImg.alt = alt || '';
+            lbImg.style.display = '';
+            comparePanel.style.display = 'none';
             lb.classList.add('active'); document.body.style.overflow = 'hidden';
         }
-        function closeLightbox() {
-            lb.classList.remove('active'); lbImg.src = ''; document.body.style.overflow = '';
-        }
 
-        document.querySelectorAll('.portfolio-item img, .ba-col img').forEach(img => {
+        // Single-image lightbox for portfolio grids
+        document.querySelectorAll('.portfolio-item img').forEach(img => {
             img.addEventListener('click', () => openLightbox(img.src, img.alt));
         });
+
+        // Compare lightbox for before/after pairs
+        function openCompareLightbox(beforeSrc, afterSrc) {
+            lbImg.style.display = 'none';
+            compareBefore.src = beforeSrc;
+            compareAfter.src  = afterSrc;
+            comparePanel.style.display = 'flex';
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        document.querySelectorAll('.before-after-item').forEach(item => {
+            item.querySelectorAll('.ba-col img').forEach(img => {
+                img.addEventListener('click', () => {
+                    const imgs = item.querySelectorAll('.ba-col img');
+                    openCompareLightbox(imgs[0].src, imgs[1].src);
+                });
+            });
+        });
+
+        function closeLightbox() {
+            lb.classList.remove('active');
+            lbImg.src = ''; lbImg.style.display = '';
+            comparePanel.style.display = 'none';
+            compareBefore.src = ''; compareAfter.src = '';
+            document.body.style.overflow = '';
+        }
+
         lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
         document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
