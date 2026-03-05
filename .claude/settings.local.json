@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(xargs ls -lh)",
+      "Bash(sort -k5 -rh)",
+      "Bash(du -sh \"/Users/iankehayes/Claude Files/Claude Code Photography Site/img/\"*/)",
+      "Bash(du -sh \"/Users/iankehayes/Claude Files/Claude Code Photography Site/\"*.html)",
+      "Bash(find \"/Users/iankehayes/Claude Files/Claude Code Photography Site/img\" -type f -name \"*.png\" -exec ls -lh {} ;)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3:*)",
+      "Bash(gh repo view hazykey/HarbourHues-Site --json defaultBranchRef,isEmpty)",
+      "Bash(gh api repos/hazykey/HarbourHues-Site/contents --jq '.[].name')",
+      "Bash(gh api repos/hazykey/HarbourHues-Site/contents/.gitignore --jq '.content')",
+      "Bash(git init)",
+      "Bash(git remote add origin https://github.com/hazykey/HarbourHues-Site.git)",
+      "Bash(git fetch origin)",
+      "Bash(git add index.html portraits.html maternity-events.html landscapes.html restoration.html design.html favicon.svg .gitignore .claude/launch.json)",
+      "Bash(git add img/)",
+      "Bash(git commit:*)",
+      "Bash(git push origin main --force)",
+      "Bash(gh repo view hazykey/HarbourHues-Site --json url,defaultBranchRef,pushedAt --jq '\"\"URL: \\\\\\(.url\\)\\\\nBranch: \\\\\\(.defaultBranchRef.name\\)\\\\nPushed: \\\\\\(.pushedAt\\)\"\"')",
+      "Bash(git add index.html)",
+      "Bash(git push origin main)",
+      "Bash(git add index.html restoration.html)",
+      "Bash(gh api repos/hazykey/HarbourHues-Site/pages)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{url_effective}\" \"https://hazykey.github.io/HarbourHues-Site/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{url_effective}\" \"https://hazykey.github.io/HarbourHues-Site/portraits.html\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://hazykey.github.io\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://harbourhuesmedia.ca\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://hazykey.github.io/HarbourHues-Site\")",
+      "Bash(__NEW_LINE_a3d18d7f75a83450__ echo \"\")",
+      "Bash(__NEW_LINE_bf06a32dcae2313e__ echo \"\")"
+    ]
+  }
+}
