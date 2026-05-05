@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light">
     <meta property="og:type"        content="website">
     <meta property="og:url"         content="https://harbourhues.ca/landscapes/">
     <meta property="og:title"       content="Landscapes, Nature & Animals Gallery — Harbour Hues Media">
@@ -20,8 +19,7 @@
     <title>Landscapes, Nature &amp; Animals Gallery - Harbour Hues Media</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            color-scheme: light; --primary: #1a4567; --secondary: #f4a261; --accent: #e76f51; --bg: #f8f9fa; --text: #2c3e50; --white: #ffffff; }
+        :root { --primary: #1a4567; --secondary: #f4a261; --accent: #e76f51; --bg: #f8f9fa; --text: #2c3e50; --white: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); }
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
@@ -46,8 +44,8 @@
         .gallery-thumb:hover img { transform: scale(1.05); }
 
         .back-btn-wrap { text-align: center; padding: 3rem 2rem 2rem; }
-        .btn-home { display: inline-block; padding: 0.9rem 2.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.05em; transition: background 0.3s, transform 0.2s; }
-        .btn-home:hover { background: var(--accent); transform: translateY(-2px); }
+        .btn-home { display: inline-block; padding: 0.9rem 2.5rem; background: transparent; color: var(--primary); border: 2px solid var(--primary); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.05em; transition: background 0.3s, color 0.3s, transform 0.2s; }
+        .btn-home:hover { background: var(--primary); color: white; transform: translateY(-2px); }
 
         footer { background: var(--primary); color: white; padding: 2rem; text-align: center; font-size: 0.9rem; }
         footer a { color: var(--secondary); }
@@ -61,8 +59,8 @@
         .lightbox-prev { left: 0.5rem; } .lightbox-next { right: 0.5rem; }
         .lightbox-prev:hover, .lightbox-next:hover { color: var(--secondary); }
         .lb-counter { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: white; font-size: 0.85rem; background: rgba(0,0,0,0.5); padding: 0.3rem 0.9rem; border-radius: 20px; }
-        .btn-contact { background: transparent; border: 2px solid var(--primary); color: var(--primary); box-shadow: none; }
-        .btn-contact:hover { background: var(--primary); color: white; }
+        .btn-contact { background: var(--primary); color: white; border: 2px solid var(--primary); }
+        .btn-contact:hover { background: #15374f; }
         .btn-book { background: var(--secondary); color: white; box-shadow: 0 4px 15px rgba(244,162,97,0.35); }
         .btn-book:hover { background: var(--accent); transform: translateY(-2px); }
         .back-btn-wrap { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }

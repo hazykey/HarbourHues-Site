@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light">
     <meta property="og:type"        content="website">
     <meta property="og:url"         content="https://harbourhues.ca/">
     <meta property="og:title"       content="Harbour Hues Media — East Coast Photography, Design & Restoration">
@@ -21,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            color-scheme: light;
             --primary: #1a4567;
             --secondary: #f4a261;
             --accent: #e76f51;
@@ -76,8 +74,15 @@
         }
         .nav-links li a:hover { color: var(--primary); }
         .nav-links li a:hover::after { transform: scaleX(1); }
-        .nav-links li:last-child a {
+        .nav-links li:nth-last-child(2) a {
             background: var(--primary); color: var(--white); border-radius: 30px;
+            padding: 0.45rem 1.3rem; letter-spacing: 0.1em; margin-left: 0.5rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .nav-links li:nth-last-child(2) a::after { display: none; }
+        .nav-links li:nth-last-child(2) a:hover { background: #15374f; transform: translateY(-1px); }
+        .nav-links li:last-child a {
+            background: var(--secondary); color: var(--white); border-radius: 30px;
             padding: 0.45rem 1.3rem; letter-spacing: 0.1em; margin-left: 0.5rem;
             transition: background 0.3s, transform 0.2s;
         }
@@ -115,9 +120,16 @@
             transition: color 0.2s, background 0.2s;
         }
         .nav-dropdown ul li a:hover { color: var(--primary); background: rgba(26,69,103,0.05); }
-        .nav-dropdown ul li:last-child a {
+        .nav-dropdown ul li:nth-last-child(2) a {
             display: inline-block; margin: 0.35rem 2rem;
             background: var(--primary); color: white; border-radius: 30px;
+            padding: 0.5rem 1.5rem; letter-spacing: 0.1em;
+            transition: background 0.3s;
+        }
+        .nav-dropdown ul li:nth-last-child(2) a:hover { background: #15374f; }
+        .nav-dropdown ul li:last-child a {
+            display: inline-block; margin: 0.35rem 2rem;
+            background: var(--secondary); color: white; border-radius: 30px;
             padding: 0.5rem 1.5rem; letter-spacing: 0.1em;
             transition: background 0.3s;
         }
