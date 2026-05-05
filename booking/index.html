@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://harbourhues.ca/booking/">
+    <meta property="og:title"       content="Book a Session — Harbour Hues Media">
+    <meta property="og:description" content="Book a photography, design, or media session with Ian Kehayes. Halifax, NS.">
+    <meta property="og:image"       content="https://harbourhues.ca/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card"       content="summary_large_image">
+    <meta name="twitter:title"      content="Book a Session — Harbour Hues Media">
+    <meta name="twitter:description" content="Book a photography, design, or media session with Ian Kehayes. Halifax, NS.">
+    <meta name="twitter:image"      content="https://harbourhues.ca/og-image.png">
+    <meta name="description"        content="Book a session with Harbour Hues Media — Halifax, NS">
+    <title>Book a Session — Harbour Hues Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a4567; --secondary: #f4a261; --accent: #e76f51; --bg: #f8f9fa; --text: #2c3e50; --white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Header */
+        .page-header { position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(26,69,103,0.08); padding: 0 2rem; height: 70px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
+        .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--primary); text-decoration: none; letter-spacing: 0.04em; }
+        .nav-brand span { color: var(--secondary); font-style: italic; }
+        .back-link { color: var(--primary); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+        .back-link:hover { color: var(--secondary); }
+
+        /* Page intro */
+        .booking-intro { text-align: center; padding: 3rem 2rem 1.5rem; }
+        .booking-intro h1 { font-size: 2.6rem; color: var(--primary); border-bottom: 2px solid var(--secondary); display: inline-block; padding-bottom: 0.5rem; margin-bottom: 0.8rem; }
+        .booking-intro p { color: #6b7c8d; font-size: 1rem; font-style: italic; max-width: 520px; margin: 0 auto; }
+
+        /* Cal embed container */
+        .cal-wrap { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 1rem 1.5rem 3rem; }
+        #my-cal-inline { width: 100%; min-height: 700px; border-radius: 12px; overflow: hidden; }
+
+        /* Footer */
+        footer { background: var(--primary); color: white; padding: 2rem; text-align: center; font-size: 0.9rem; margin-top: auto; }
+        footer a { color: var(--secondary); }
+    </style>
+</head>
+<body>
+
+    <header class="page-header">
+        <a href="../" class="nav-brand">Harbour <span>Hues</span> Media</a>
+        <a href="../" class="back-link">&larr; Home</a>
+    </header>
+
+    <div class="booking-intro">
+        <h1>Book a Session</h1>
+        <p>Pick a time that works for you — I'll confirm and we'll take it from there.</p>
+    </div>
+
+    <div class="cal-wrap">
+        <div id="my-cal-inline"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Harbour Hues Media. Halifax, NS. <a href="mailto:hello@harbourhues.ca">hello@harbourhues.ca</a></p>
+    </footer>
+
+    <!-- Cal.com inline embed -->
+    <script type="text/javascript">
+        (function (C, A, L) {
+            let p = function (a, ar) { a.q.push(ar); };
+            let d = C.document;
+            C.Cal = C.Cal || function () {
+                let cal = C.Cal; let ar = arguments;
+                if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+                if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) && p(cal.ns[namespace], ar) && p(cal, ["-load", namespace]) : p(cal, ar); return; }
+                p(cal, ar);
+            };
+        })(window, "https://app.cal.com/embed/embed.js", "init");
+
+        Cal("init", { origin: "https://cal.com" });
+        Cal("inline", {
+            elementOrSelector: "#my-cal-inline",
+            calLink: "ian.kehayes",
+            config: { layout: "month_view" }
+        });
+        Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+    </script>
+
+</body>
+</html>
