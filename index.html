@@ -74,13 +74,13 @@
         }
         .nav-links li a:hover { color: var(--primary); }
         .nav-links li a:hover::after { transform: scaleX(1); }
-        .nav-links li:nth-last-child(2) a {
+        .nav-links li:nth-last-child(2) a, .nav-links li:nth-last-child(3) a {
             background: var(--primary); color: var(--white); border-radius: 30px;
             padding: 0.45rem 1.3rem; letter-spacing: 0.1em; margin-left: 0.5rem;
             transition: background 0.3s, transform 0.2s;
         }
-        .nav-links li:nth-last-child(2) a::after { display: none; }
-        .nav-links li:nth-last-child(2) a:hover { background: #15374f; transform: translateY(-1px); }
+        .nav-links li:nth-last-child(2) a::after, .nav-links li:nth-last-child(3) a::after { display: none; }
+        .nav-links li:nth-last-child(2) a:hover, .nav-links li:nth-last-child(3) a:hover { background: #15374f; transform: translateY(-1px); }
         .nav-links li:last-child a {
             background: var(--secondary); color: var(--white); border-radius: 30px;
             padding: 0.45rem 1.3rem; letter-spacing: 0.1em; margin-left: 0.5rem;
@@ -120,13 +120,13 @@
             transition: color 0.2s, background 0.2s;
         }
         .nav-dropdown ul li a:hover { color: var(--primary); background: rgba(26,69,103,0.05); }
-        .nav-dropdown ul li:nth-last-child(2) a {
+        .nav-dropdown ul li:nth-last-child(2) a, .nav-dropdown ul li:nth-last-child(3) a {
             display: inline-block; margin: 0.35rem 2rem;
             background: var(--primary); color: white; border-radius: 30px;
             padding: 0.5rem 1.5rem; letter-spacing: 0.1em;
             transition: background 0.3s;
         }
-        .nav-dropdown ul li:nth-last-child(2) a:hover { background: #15374f; }
+        .nav-dropdown ul li:nth-last-child(2) a:hover, .nav-dropdown ul li:nth-last-child(3) a:hover { background: #15374f; }
         .nav-dropdown ul li:last-child a {
             display: inline-block; margin: 0.35rem 2rem;
             background: var(--secondary); color: white; border-radius: 30px;
@@ -261,6 +261,7 @@
                 <li><a href="#design">Design</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="https://shop.harbourhues.ca" target="_blank" rel="noopener">Shop</a></li>
                 <li><a href="booking/">Book Now</a></li>
             </ul>
             <!-- Hamburger (shown when scrolled or on mobile) -->
@@ -276,6 +277,7 @@
                 <li><a href="#design">Design</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="https://shop.harbourhues.ca" target="_blank" rel="noopener">Shop</a></li>
                 <li><a href="booking/">Book Now</a></li>
             </ul>
         </div>
@@ -286,7 +288,7 @@
         <p>Capturing East Coast vibes through photography, design, and photo restoration. Prints &amp; custom work available.</p>
         <div class="btn-group">
             <a href="#photo" class="btn btn-secondary">View Portfolio</a>
-            <a href="https://shop.harbourhues.ca" class="btn btn-secondary">Order Prints &amp; Merch</a>
+            <a href="https://shop.harbourhues.ca" class="btn btn-secondary" target="_blank" rel="noopener">Shop</a>
             <a href="#contact" class="btn btn-secondary">Contact</a>
         </div>
     </section>
