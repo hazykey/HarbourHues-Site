@@ -303,6 +303,32 @@ line-height: 1.6;
 .header, .body { padding-left: 24px; padding-right: 24px; }
 .divider { margin: 0 -24px; }
 }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--harbour);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  padding: 14px 28px;
+  border-radius: 2px;
+  box-shadow: 0 4px 24px rgba(26,69,103,0.22);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 </style>
 
 </head>
@@ -470,6 +496,8 @@ line-height: 1.6;
       if (res.ok) {
         document.getElementById('form-body').style.display = 'none';
         document.getElementById('thankyou').style.display = 'block';
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
         setTimeout(() => { window.location.href = 'https://harbourhues.ca'; }, 3500);
       } else {
         btn.disabled = false;
@@ -491,11 +519,12 @@ line-height: 1.6;
       );
       const fallback = confirm('Could not send automatically. Click OK to email your feedback directly, or Cancel to try again later.');
       if (fallback) {
-        window.location.href = 'mailto:ian@harbourhues.ca?subject=' + subject + '&body=' + body;
+        window.location.href = 'mailto:iankehayes@gmail.com?subject=' + subject + '&body=' + body;
       }
     }
   }
 </script>
 
+<div class="toast" id="toast">Thank you for submitting your feedback!</div>
 </body>
 </html>
