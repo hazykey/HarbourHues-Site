@@ -321,7 +321,7 @@ line-height: 1.6;
   box-shadow: 0 4px 24px rgba(26,69,103,0.22);
   opacity: 0;
   transition: opacity 0.35s ease, transform 0.35s ease;
-  pointer-events: none;
+  pointer-events: auto;
   white-space: nowrap;
   z-index: 9999;
 }
@@ -498,7 +498,7 @@ line-height: 1.6;
         document.getElementById('thankyou').style.display = 'block';
         const toast = document.getElementById('toast');
         toast.classList.add('show');
-        setTimeout(() => { window.location.href = 'https://harbourhues.ca'; }, 3500);
+        setTimeout(() => { window.location.href = 'https://harbourhues.ca'; }, 7000);
       } else {
         btn.disabled = false;
         btn.textContent = 'Submit Feedback';
@@ -525,6 +525,6 @@ line-height: 1.6;
   }
 </script>
 
-<div class="toast" id="toast">Thank you for submitting your feedback!</div>
+<div class="toast" id="toast">Thank you for submitting your feedback! &nbsp;<a href="https://harbourhues.ca" style="color:#f4a261;font-weight:600;text-decoration:none;white-space:nowrap;border-bottom:1px solid rgba(244,162,97,0.4);">Return home ↗</a></div>
 </body>
 </html>
