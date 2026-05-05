@@ -144,7 +144,7 @@
         #hero h1 { font-size: 4rem; margin-bottom: 1rem; color: var(--white); }
         #hero h1 .hero-accent { color: var(--secondary); font-style: italic; }
         #hero p { font-size: 1.5rem; margin-bottom: 2.5rem; color: rgba(255,255,255,0.9); }
-        .btn-group { display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+        .btn-group { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
         .btn { display: inline-block; padding: 0.95rem 2.2rem; background: var(--white); color: var(--primary); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.05em; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
         .btn-secondary { background: transparent; border: 2px solid rgba(255,255,255,0.8); color: var(--white); box-shadow: none; }
@@ -202,6 +202,9 @@
         .btn-booking-blue { background: var(--primary); box-shadow: 0 4px 15px rgba(26,69,103,0.25); }
         .btn-booking-blue:hover { background: #15374f; box-shadow: 0 8px 25px rgba(26,69,103,0.35); }
         .contact-note { font-size: 1rem; color: #6b7c8d; max-width: 600px; width: 100%; text-align: center; margin-bottom: 1.2rem; }
+        .booking-nudge { font-size: 0.88rem; color: #8a9aaa; margin-top: 0.5rem; margin-bottom: 1rem; }
+        .booking-nudge a { color: var(--primary); font-weight: 600; text-decoration: none; }
+        .booking-nudge a:hover { color: var(--secondary); }
         .form-divider { width: 100%; max-width: 600px; border: none; border-top: 1px solid #dde3ea; margin-bottom: 1.5rem; }
         form { max-width: 600px; width: 100%; display: flex; flex-direction: column; gap: 1rem; }
         input, textarea, select { padding: 1rem; border: 1px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 0.95rem; }
@@ -268,8 +271,8 @@
         <h1>Harbour <span class="hero-accent">Hues</span> Media</h1>
         <p>Capturing East Coast vibes through photography, design, and photo restoration. Prints &amp; custom work available.</p>
         <div class="btn-group">
+            <a href="#photo" class="btn btn-secondary">Our Work</a>
             <a href="#contact" class="btn">Contact</a>
-            <a href="#photo" class="btn btn-secondary">View Portfolio</a>
         </div>
     </section>
 
@@ -372,9 +375,10 @@
 
     <section id="contact">
         <div class="contact-btns">
-            <a href="booking/" class="btn-booking">Book Now</a>
+            <a href="#contactForm" class="btn-booking">Get in Touch</a>
             <a href="#" class="btn-booking btn-booking-blue">Order Prints &amp; Merch</a>
         </div>
+        <p class="booking-nudge">Prefer to schedule a session? <a href="booking/">Book a time &rarr;</a></p>
         <h2>Get in Touch</h2>
         <p class="contact-note">For all other inquiries related to print sessions or collabs.</p>
         <hr class="form-divider">
