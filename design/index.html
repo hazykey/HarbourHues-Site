@@ -115,6 +115,11 @@
             background: rgba(0,0,0,0.5); padding: 0.3rem 0.9rem; border-radius: 20px;
         }
 
+        .btn-contact { background: transparent; border: 2px solid var(--primary); color: var(--primary); box-shadow: none; }
+        .btn-contact:hover { background: var(--primary); color: white; }
+        .btn-book { background: var(--secondary); color: white; box-shadow: 0 4px 15px rgba(244,162,97,0.35); }
+        .btn-book:hover { background: var(--accent); transform: translateY(-2px); }
+        .back-btn-wrap { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
     </style>
 </head>
 <body>
@@ -139,6 +144,8 @@
 
     <div class="back-btn-wrap">
         <a href="../" class="btn-home">&larr; Back to Home</a>
+        <a href="../#contact" class="btn-home btn-contact">Contact</a>
+        <a href="../booking/" class="btn-home btn-book">Book Now</a>
     </div>
 
     <footer>

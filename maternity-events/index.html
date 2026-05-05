@@ -56,6 +56,11 @@
         .lightbox-prev { left: 0.5rem; } .lightbox-next { right: 0.5rem; }
         .lightbox-prev:hover, .lightbox-next:hover { color: var(--secondary); }
         .lb-counter { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: white; font-size: 0.85rem; background: rgba(0,0,0,0.5); padding: 0.3rem 0.9rem; border-radius: 20px; }
+        .btn-contact { background: transparent; border: 2px solid var(--primary); color: var(--primary); box-shadow: none; }
+        .btn-contact:hover { background: var(--primary); color: white; }
+        .btn-book { background: var(--secondary); color: white; box-shadow: 0 4px 15px rgba(244,162,97,0.35); }
+        .btn-book:hover { background: var(--accent); transform: translateY(-2px); }
+        .back-btn-wrap { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
     </style>
 </head>
 <body>
@@ -93,7 +98,11 @@
         </div>
     </main>
 
-    <div class="back-btn-wrap"><a href="../" class="btn-home">&larr; Back to Home</a></div>
+    <div class="back-btn-wrap">
+        <a href="../" class="btn-home">&larr; Back to Home</a>
+        <a href="../#contact" class="btn-home btn-contact">Contact</a>
+        <a href="../booking/" class="btn-home btn-book">Book Now</a>
+    </div>
 
     <footer><p>&copy; 2026 Harbour Hues Media. Halifax, NS. <a href="mailto:hello@harbourhues.ca">hello@harbourhues.ca</a></p></footer>
 
