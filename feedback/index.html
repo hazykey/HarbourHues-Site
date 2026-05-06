@@ -365,6 +365,14 @@ line-height: 1.6;
 
 <div class="divider"></div>
 
+<!-- Email field -->
+<div class="question">
+  <span class="q-label">Your Email</span>
+  <input type="email" class="text-input" id="client-email" placeholder="Your email (optional)" autocomplete="email">
+</div>
+
+<div class="divider"></div>
+
 <!-- Q1: Overall rating -->
 <div class="question">
   <span class="q-label">01 / Overall</span>
@@ -478,6 +486,8 @@ line-height: 1.6;
 
     const payload = {
       name: document.getElementById('client-name').value.trim() || 'Anonymous',
+      email: document.getElementById('client-email').value.trim() || 'Not provided',
+      email: document.getElementById('client-email').value.trim() || 'Not provided',
       overall_rating: star ? `${star.value} / 5 stars` : 'Not answered',
       communication: answers.comm || 'Not answered',
       deliverables_met_expectations: answers.deliv || 'Not answered',
