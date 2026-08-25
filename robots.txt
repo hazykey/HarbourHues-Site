@@ -1,0 +1,7 @@
+# Crawling is allowed so search engines can read the "noindex" tag on the
+# unlisted pages (/studio/, /client-downloads/*) and drop them from results.
+# A Disallow rule would block that crawl and advertise the paths instead.
+User-agent: *
+Allow: /
+
+Sitemap: https://harbourhues.ca/sitemap.xml

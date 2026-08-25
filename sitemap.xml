@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Public pages only. /client-downloads/ (client galleries), /studio/ (the
+     generator) and /feedback/ are intentionally left out; each carries a
+     noindex meta tag instead. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://harbourhues.ca/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://harbourhues.ca/portraits/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://harbourhues.ca/maternity-events/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://harbourhues.ca/landscapes/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://harbourhues.ca/restoration/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://harbourhues.ca/design/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://harbourhues.ca/booking/</loc>
+        <lastmod>2026-08-25</lastmod>
+        <priority>0.9</priority>
+    </url>
+</urlset>

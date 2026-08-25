@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <title>Client Page Generator — Harbour Hues Media (private)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a4567; --secondary: #f4a261; --accent: #e76f51; --bg: #f8f9fa; --text: #2c3e50; --white: #ffffff; --shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; background: var(--bg); color: var(--text); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        .page-header { background: rgba(255,255,255,0.97); border-bottom: 1px solid rgba(26,69,103,0.08); padding: 0 2rem; height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--primary); text-decoration: none; letter-spacing: 0.04em; }
+        .nav-brand span { color: var(--secondary); font-style: italic; }
+        .private-tag { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; color: var(--accent); background: rgba(231,111,81,0.1); padding: 0.35rem 0.85rem; border-radius: 30px; }
+
+        .wrap { max-width: 1400px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: minmax(360px, 440px) 1fr; gap: 2rem; align-items: start; }
+
+        .panel { background: var(--white); border-radius: 16px; box-shadow: var(--shadow); padding: 1.75rem; }
+        .panel h2 { font-size: 1.35rem; color: var(--primary); padding-bottom: 0.5rem; border-bottom: 2px solid var(--secondary); display: inline-block; margin-bottom: 1.25rem; }
+
+        form { display: flex; flex-direction: column; gap: 0.9rem; max-width: none; }
+        label { display: block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #6b7c8d; font-weight: 600; margin-bottom: 0.35rem; }
+        label .opt { text-transform: none; letter-spacing: 0; font-weight: 400; color: #a3b1bf; font-style: italic; }
+        input, textarea { width: 100%; padding: 0.8rem 0.9rem; border: 1px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 0.92rem; color: var(--text); background: var(--white); }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary); }
+        textarea { resize: vertical; min-height: 62px; }
+        .field-hint { font-size: 0.78rem; color: #8a9aaa; margin-top: 0.3rem; }
+
+        .slug-block { background: #f4f7fa; border-left: 3px solid var(--secondary); border-radius: 8px; padding: 1rem 1.1rem; }
+        .slug-row { display: flex; gap: 0.5rem; align-items: center; }
+        .slug-row input { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.86rem; }
+        .mini-btn { flex-shrink: 0; padding: 0.55rem 0.9rem; background: transparent; color: var(--primary); border: 2px solid var(--primary); border-radius: 30px; font-family: inherit; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.25s, color 0.25s; }
+        .mini-btn:hover { background: var(--primary); color: var(--white); }
+        .url-line { margin-top: 0.7rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: var(--primary); word-break: break-all; }
+        .suffix-toggle { display: flex; align-items: flex-start; gap: 0.55rem; margin-top: 0.8rem; cursor: pointer; }
+        .suffix-toggle input { width: auto; margin-top: 0.15rem; accent-color: var(--primary); flex-shrink: 0; }
+        .suffix-toggle span { font-size: 0.8rem; color: #6b7c8d; line-height: 1.5; }
+        .suffix-toggle strong { color: var(--primary); font-weight: 600; }
+
+        .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-top: 0.25rem; }
+        .btn-download { padding: 1rem 2.2rem; background: var(--secondary); color: var(--white); border: none; border-radius: 50px; font-family: inherit; font-weight: 600; font-size: 0.98rem; letter-spacing: 0.05em; cursor: pointer; transition: transform 0.3s, background 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(244,162,97,0.35); }
+        .btn-download:hover:not(:disabled) { background: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(231,111,81,0.35); }
+        .btn-download:disabled { background: #c9d3dd; box-shadow: none; cursor: not-allowed; }
+        .btn-copy { padding: 1rem 1.6rem; background: var(--primary); color: var(--white); border: none; border-radius: 50px; font-family: inherit; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.05em; cursor: pointer; transition: background 0.3s; }
+        .btn-copy:hover { background: #15374f; }
+        .status { font-size: 0.82rem; color: #6b7c8d; min-height: 1.2rem; margin-top: 0.6rem; }
+        .status.warn { color: var(--accent); }
+
+        .deploy { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #e4eaf0; font-size: 0.85rem; color: #6b7c8d; line-height: 1.75; }
+        .deploy strong { color: var(--primary); }
+        .deploy code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; background: #f4f7fa; padding: 0.15rem 0.4rem; border-radius: 4px; color: var(--primary); }
+        .deploy ol { margin: 0.5rem 0 0 1.1rem; }
+        .deploy li { margin-bottom: 0.35rem; }
+
+        .preview-panel { position: sticky; top: 1.5rem; padding: 1.25rem; }
+        .preview-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+        .preview-head h2 { margin-bottom: 0; }
+        .view-toggle { display: flex; gap: 0.4rem; }
+        .view-toggle button { padding: 0.45rem 1rem; background: transparent; border: 2px solid #dde3ea; border-radius: 30px; font-family: inherit; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6b7c8d; cursor: pointer; transition: all 0.25s; }
+        .view-toggle button.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
+        .frame-shell { background: #e8edf2; border-radius: 12px; padding: 1rem; display: flex; justify-content: center; }
+        iframe { width: 100%; max-width: 100%; height: 78vh; min-height: 560px; border: none; border-radius: 8px; background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: max-width 0.3s; }
+        iframe.mobile { max-width: 390px; }
+
+        @media (max-width: 1080px) {
+            .wrap { grid-template-columns: 1fr; padding: 1.25rem; }
+            .preview-panel { position: static; }
+            iframe { height: 620px; }
+        }
+        @media (max-width: 640px) {
+            .page-header { padding: 0 1.25rem; height: 60px; }
+            .nav-brand { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <a href="../" class="nav-brand">Harbour <span>Hues</span> Media</a>
+        <span class="private-tag">Private admin tool</span>
+    </header>
+
+    <div class="wrap">
+        <section class="panel">
+            <h2>Client Page Details</h2>
+            <form id="genForm" autocomplete="off">
+                <div>
+                    <label for="clientName">Client Name</label>
+                    <input type="text" id="clientName" placeholder="Chris &amp; Cintia" required>
+                    <p class="field-hint">Used in the headline. First names of each person feed the slug.</p>
+                </div>
+                <div>
+                    <label for="sessionType">Session Type</label>
+                    <input type="text" id="sessionType" placeholder="Engagement Session" required>
+                </div>
+                <div>
+                    <label for="sessionDate">Session Date</label>
+                    <input type="date" id="sessionDate" required>
+                </div>
+                <div>
+                    <label for="photoCount">Photo Count <span class="opt">(optional)</span></label>
+                    <input type="number" id="photoCount" min="1" placeholder="87">
+                </div>
+                <div>
+                    <label for="dropoverLink">Dropover Link</label>
+                    <input type="url" id="dropoverLink" placeholder="https://dropover.cloud/abc123" required>
+                </div>
+                <div>
+                    <label for="expiryNote">Expiry Note <span class="opt">(optional)</span></label>
+                    <textarea id="expiryNote" placeholder="This link stays active for 30 days, until September 15, 2025. Please save your photos before then."></textarea>
+                </div>
+                <div>
+                    <label for="passwordNote">Password Note <span class="opt">(optional)</span></label>
+                    <textarea id="passwordNote" placeholder="Sent separately in your delivery email. Reply to that email if you don&#39;t have it."></textarea>
+                    <p class="field-hint"><strong>Do not type the real password here.</strong> This page sits at a public URL in a public repo, so a password printed on it protects nothing. Send it by email or text instead.</p>
+                </div>
+
+                <div class="slug-block">
+                    <label for="slug">Page Slug</label>
+                    <div class="slug-row">
+                        <input type="text" id="slug" placeholder="chris-cintia-aug2025">
+                        <button type="button" class="mini-btn" id="autoSlug" title="Regenerate from name and date">Auto</button>
+                    </div>
+                    <p class="url-line" id="urlLine">https://harbourhues.ca/client-downloads/</p>
+                    <label class="suffix-toggle" for="randomSuffix">
+                        <input type="checkbox" id="randomSuffix" checked>
+                        <span><strong>Add a random suffix.</strong> Without it the URL is guessable from the client's first names and the month. Press Auto to roll a new one.</span>
+                    </label>
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn-download" id="downloadBtn" disabled>Download HTML</button>
+                    <button type="button" class="btn-copy" id="copyHtmlBtn">Copy HTML</button>
+                    <button type="button" class="btn-copy" id="copyUrlBtn">Copy URL</button>
+                </div>
+                <p class="status" id="status">Fill in name, session type, date, and Dropover link to enable the download.</p>
+            </form>
+
+            <div class="deploy">
+                <strong>To publish, from any device:</strong>
+                <ol>
+                    <li>Hit <em>Copy HTML</em>, then open the repo on GitHub and choose <em>Add file &rarr; Create new file</em>.</li>
+                    <li>Name it <code>client-downloads/<span id="slugEcho">SLUG</span>/index.html</code>. Typing the slashes creates the folders.</li>
+                    <li>Paste, commit to <code>main</code>. GitHub Pages serves it in about a minute.</li>
+                </ol>
+                On a computer you can use <em>Download HTML</em> instead and drop the file into
+                <code>client-downloads/<span id="slugEcho2">SLUG</span>/index.html</code> locally.
+                <p style="margin-top:0.75rem;"><strong>Reminder:</strong> the repo is public, so never put the real gallery password on a client page. Keep it in the delivery email.</p>
+            </div>
+        </section>
+
+        <section class="panel preview-panel">
+            <div class="preview-head">
+                <h2>Live Preview</h2>
+                <div class="view-toggle">
+                    <button type="button" data-view="desktop" class="active">Desktop</button>
+                    <button type="button" data-view="mobile">Mobile</button>
+                </div>
+            </div>
+            <div class="frame-shell">
+                <iframe id="preview" title="Client page preview"></iframe>
+            </div>
+        </section>
+    </div>
+
+<script type="text/plain" id="templateSource">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="https://harbourhues.ca/favicon.svg">
+    <title>Your Photos Are Ready — Harbour Hues Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a4567; --secondary: #f4a261; --accent: #e76f51; --bg: #f8f9fa; --text: #2c3e50; --white: #ffffff; --shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* ── Header (matches gallery pages) ── */
+        .page-header { position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(26,69,103,0.08); padding: 0 2rem; height: 70px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
+        .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--primary); text-decoration: none; letter-spacing: 0.04em; white-space: nowrap; }
+        .nav-brand span { color: var(--secondary); font-style: italic; }
+        .back-link { color: var(--primary); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+        .back-link:hover { color: var(--secondary); }
+
+        /* ── Main ── */
+        .delivery-main { flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: 3.5rem 1.5rem 4rem; background: linear-gradient(180deg, #e8edf2 0%, var(--bg) 55%); }
+        .delivery-card { background: var(--white); border-radius: 16px; box-shadow: var(--shadow); max-width: 640px; width: 100%; padding: 3rem 2.5rem; text-align: center; }
+        .eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary); font-weight: 600; margin-bottom: 0.9rem; }
+        .delivery-card h1 { font-size: 2.4rem; color: var(--primary); line-height: 1.2; margin-bottom: 1rem; }
+        .lede { font-size: 1.05rem; color: #4a6070; line-height: 1.8; margin: 0 auto 2rem; max-width: 480px; }
+
+        /* ── Session meta row ── */
+        .session-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2.5rem; padding: 1.5rem 0; border-top: 1px solid #e4eaf0; border-bottom: 1px solid #e4eaf0; margin-bottom: 2.25rem; }
+        .meta-item { text-align: center; }
+        .meta-label { display: block; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: #8a9aaa; font-weight: 600; margin-bottom: 0.25rem; }
+        .meta-value { display: block; font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--primary); }
+
+        /* ── Download button (matches .btn-booking) ── */
+        .btn-download { display: inline-block; padding: 1.1rem 3rem; background: var(--secondary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.05rem; letter-spacing: 0.05em; transition: transform 0.3s, background 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(244,162,97,0.35); }
+        .btn-download:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(231,111,81,0.35); }
+        .how-to { font-size: 0.9rem; color: #6b7c8d; margin-top: 1.1rem; }
+
+        /* ── Notes ── */
+        .notes { margin-top: 2rem; background: #f4f7fa; border-left: 3px solid var(--secondary); border-radius: 8px; padding: 1.1rem 1.4rem; text-align: left; }
+        .note { font-size: 0.9rem; color: #4a6070; line-height: 1.7; }
+        .note + .note { margin-top: 0.5rem; }
+        .note strong { color: var(--primary); font-weight: 600; }
+        .help { font-size: 0.88rem; color: #8a9aaa; margin-top: 1.75rem; }
+        .help a { color: var(--primary); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(26,69,103,0.25); }
+        .help a:hover { color: var(--secondary); }
+
+        /* ── Footer ── */
+        footer { background: var(--primary); color: var(--white); padding: 2.25rem 2rem; text-align: center; font-size: 0.9rem; }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2rem; margin-bottom: 1.25rem; }
+        .footer-links a { color: var(--white); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--secondary); }
+        footer p a { color: var(--secondary); text-decoration: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .page-header { padding: 0 1.25rem; height: 60px; }
+            .nav-brand { font-size: 1.05rem; }
+            .delivery-main { padding: 2rem 1rem 3rem; }
+            .delivery-card { padding: 2.25rem 1.4rem; border-radius: 14px; }
+            .delivery-card h1 { font-size: 1.85rem; }
+            .lede { font-size: 1rem; }
+            .session-meta { gap: 1.25rem 1.75rem; }
+            .btn-download { display: block; padding: 1rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <a href="https://harbourhues.ca/" class="nav-brand">Harbour <span>Hues</span> Media</a>
+        <a href="https://harbourhues.ca/" class="back-link">&larr; Home</a>
+    </header>
+
+    <main class="delivery-main">
+        <div class="delivery-card">
+            <p class="eyebrow">Your Gallery</p>
+            <h1>Your Photos Are Ready, {{CLIENT_NAME}}!</h1>
+            <p class="lede">Thank you so much for choosing to work with me! Your {{SESSION_TYPE}} photos from {{SESSION_DATE}} are edited, exported at full resolution, and ready to download.</p>
+
+            <div class="session-meta">
+<!--IF:SESSION_TYPE-->                <div class="meta-item"><span class="meta-label">Session</span><span class="meta-value">{{SESSION_TYPE}}</span></div>
+<!--/IF:SESSION_TYPE--><!--IF:SESSION_DATE-->                <div class="meta-item"><span class="meta-label">Date</span><span class="meta-value">{{SESSION_DATE}}</span></div>
+<!--/IF:SESSION_DATE--><!--IF:PHOTO_COUNT-->                <div class="meta-item"><span class="meta-label">Photos</span><span class="meta-value">{{PHOTO_COUNT}}</span></div>
+<!--/IF:PHOTO_COUNT-->            </div>
+
+            <a href="{{DROPOVER_LINK}}" class="btn-download" target="_blank" rel="noopener noreferrer">Download Your Photos</a>
+            <p class="how-to">No account or app needed. The link opens in any browser and works on desktop and mobile.</p>
+
+<!--IF:NOTES-->            <div class="notes">
+<!--IF:EXPIRY_NOTE-->                <p class="note"><strong>Link expiry:</strong> {{EXPIRY_NOTE}}</p>
+<!--/IF:EXPIRY_NOTE--><!--IF:PASSWORD_NOTE-->                <p class="note"><strong>Password:</strong> {{PASSWORD_NOTE}}</p>
+<!--/IF:PASSWORD_NOTE-->            </div>
+<!--/IF:NOTES-->
+            <p class="help">Trouble with the link, or need a photo re-exported? Email <a href="mailto:hello@harbourhues.ca">hello@harbourhues.ca</a> and I'll sort it out.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://harbourhues.ca/">Home</a>
+            <a href="https://harbourhues.ca/feedback/">Leave Feedback</a>
+            <a href="https://shop.harbourhues.ca">Order Prints</a>
+            <a href="https://harbourhues.ca/booking/">Book a Session</a>
+        </div>
+        <p>&copy; 2026 Harbour Hues Media. Halifax, NS. <a href="mailto:hello@harbourhues.ca">hello@harbourhues.ca</a></p>
+    </footer>
+</body>
+</html>
+</script>
+
+<script>
+(function () {
+    'use strict';
+
+    var TEMPLATE = document.getElementById('templateSource').textContent.replace(/^\n/, '');
+    var MONTHS = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+    var MONTHS_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    var el = function (id) { return document.getElementById(id); };
+    var fields = {
+        clientName: el('clientName'), sessionType: el('sessionType'), sessionDate: el('sessionDate'),
+        photoCount: el('photoCount'), dropoverLink: el('dropoverLink'),
+        expiryNote: el('expiryNote'), passwordNote: el('passwordNote')
+    };
+    var slugInput = el('slug'), urlLine = el('urlLine'), slugEcho = el('slugEcho');
+    var downloadBtn = el('downloadBtn'), statusEl = el('status'), preview = el('preview');
+    var suffixBox = el('randomSuffix');
+    var slugTouched = false;
+    var suffixToken = '';
+
+    /* ── helpers ── */
+    function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function safeUrl(s) {
+        var v = String(s).trim();
+        return /^https?:\/\//i.test(v) ? v : '';
+    }
+    function slugifyWord(w) {
+        return w.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    function firstNames(name) {
+        return String(name).replace(/\s*&\s*|\s*\+\s*|\s*,\s*|\s+and\s+/gi, '|')
+            .split('|')
+            .map(function (part) { return slugifyWord((part.trim().split(/\s+/)[0] || '')); })
+            .filter(Boolean);
+    }
+    function datePart(iso) {
+        var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso));
+        return m ? MONTHS[parseInt(m[2], 10) - 1] + m[1] : '';
+    }
+    function prettyDate(iso) {
+        var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso));
+        return m ? MONTHS_FULL[parseInt(m[2], 10) - 1] + ' ' + parseInt(m[3], 10) + ', ' + m[1] : '';
+    }
+    /* Unambiguous alphabet: no l/1, no o/0, so a slug read off a phone screen
+       can be typed back without guesswork. */
+    function makeToken() {
+        var chars = 'abcdefghijkmnpqrstuvwxyz23456789', bytes = new Uint8Array(6), out = '';
+        crypto.getRandomValues(bytes);
+        for (var i = 0; i < 6; i++) { out += chars.charAt(bytes[i] % chars.length); }
+        return out;
+    }
+    function buildSlug() {
+        var parts = firstNames(fields.clientName.value).concat(datePart(fields.sessionDate.value));
+        if (suffixBox.checked) {
+            if (!suffixToken) { suffixToken = makeToken(); }
+            parts.push(suffixToken);
+        }
+        return parts.filter(Boolean).join('-');
+    }
+    function currentSlug() {
+        return slugInput.value.trim()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+    }
+
+    /* ── template rendering ── */
+    function renderPage(data, flags) {
+        var out = TEMPLATE;
+        Object.keys(flags).forEach(function (key) {
+            var re = new RegExp('<!--IF:' + key + '-->([\\s\\S]*?)<!--\\/IF:' + key + '-->', 'g');
+            out = out.replace(re, flags[key] ? '$1' : '');
+        });
+        Object.keys(data).forEach(function (key) {
+            out = out.replace(new RegExp('\\{\\{' + key + '\\}\\}', 'g'), data[key]);
+        });
+        return out;
+    }
+
+    function collect() {
+        var name = fields.clientName.value.trim();
+        var type = fields.sessionType.value.trim();
+        var date = fields.sessionDate.value;
+        var count = fields.photoCount.value.trim();
+        var link = safeUrl(fields.dropoverLink.value);
+        var expiry = fields.expiryNote.value.trim();
+        var pass = fields.passwordNote.value.trim();
+
+        var data = {
+            CLIENT_NAME: escapeHtml(name || 'there'),
+            SESSION_TYPE: escapeHtml(type || 'session'),
+            SESSION_DATE: escapeHtml(prettyDate(date) || 'your session'),
+            PHOTO_COUNT: escapeHtml(count),
+            DROPOVER_LINK: escapeHtml(link || '#'),
+            EXPIRY_NOTE: escapeHtml(expiry),
+            PASSWORD_NOTE: escapeHtml(pass)
+        };
+        var flags = {
+            SESSION_TYPE: !!type,
+            SESSION_DATE: !!date,
+            PHOTO_COUNT: !!count,
+            EXPIRY_NOTE: !!expiry,
+            PASSWORD_NOTE: !!pass,
+            NOTES: !!(expiry || pass)
+        };
+        return { html: renderPage(data, flags), ready: !!(name && type && date && link) };
+    }
+
+    /* ── UI sync ── */
+    function update() {
+        if (!slugTouched) { slugInput.value = buildSlug(); }
+        var slug = currentSlug();
+        urlLine.textContent = 'https://harbourhues.ca/client-downloads/' + (slug ? slug + '/' : '');
+        slugEcho.textContent = slug || 'slug';
+        el('slugEcho2').textContent = slug || 'slug';
+
+        var result = collect();
+        preview.srcdoc = result.html;
+
+        var missingLink = fields.dropoverLink.value.trim() && !safeUrl(fields.dropoverLink.value);
+        downloadBtn.disabled = !(result.ready && slug);
+        statusEl.classList.toggle('warn', !!missingLink);
+        if (missingLink) {
+            statusEl.textContent = 'The Dropover link must start with https://';
+        } else if (downloadBtn.disabled) {
+            statusEl.textContent = 'Fill in name, session type, date, and Dropover link to enable the download.';
+        } else {
+            statusEl.textContent = 'Ready. Downloads as ' + slug + '.html';
+        }
+    }
+
+    Object.keys(fields).forEach(function (k) { fields[k].addEventListener('input', update); });
+    slugInput.addEventListener('input', function () { slugTouched = true; update(); });
+    slugInput.addEventListener('blur', function () { if (slugTouched) { slugInput.value = currentSlug(); update(); } });
+    el('autoSlug').addEventListener('click', function () {
+        slugTouched = false;
+        if (suffixBox.checked) { suffixToken = makeToken(); }
+        update();
+    });
+    suffixBox.addEventListener('change', function () { slugTouched = false; update(); });
+
+    downloadBtn.addEventListener('click', function () {
+        var result = collect();
+        if (!result.ready) { return; }
+        var slug = currentSlug() || 'client-page';
+        var blob = new Blob([result.html], { type: 'text/html;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url; a.download = slug + '.html';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        statusEl.classList.remove('warn');
+        statusEl.textContent = 'Downloaded ' + slug + '.html. Rename it to index.html inside client-downloads/' + slug + '/';
+    });
+
+    function copyText(text, message) {
+        var done = function () { statusEl.classList.remove('warn'); statusEl.textContent = message; };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, done);
+        } else {
+            var t = document.createElement('textarea');
+            t.value = text; document.body.appendChild(t); t.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(t); done();
+        }
+    }
+
+    el('copyHtmlBtn').addEventListener('click', function () {
+        var result = collect();
+        if (!result.ready) {
+            statusEl.classList.add('warn');
+            statusEl.textContent = 'Fill in the required fields first.';
+            return;
+        }
+        copyText(result.html, 'Page HTML copied. Paste it into a new index.html on GitHub.');
+    });
+
+    el('copyUrlBtn').addEventListener('click', function () {
+        copyText(urlLine.textContent, 'Copied: ' + urlLine.textContent);
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('.view-toggle button'), function (btn) {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.view-toggle button').forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            preview.classList.toggle('mobile', btn.dataset.view === 'mobile');
+        });
+    });
+
+    /* expose for scripted generation / testing */
+    window.hhBuildPage = function () { return collect().html; };
+    window.hhSlug = currentSlug;
+
+    update();
+})();
+</script>
+</body>
+</html>
