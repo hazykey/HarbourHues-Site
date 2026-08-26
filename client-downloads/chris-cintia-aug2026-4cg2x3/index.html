@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="https://harbourhues.ca/favicon.svg">
+    <title>Your Photos Are Ready — Harbour Hues Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a4567; --secondary: #f4a261; --accent: #e76f51; --bg: #f8f9fa; --text: #2c3e50; --white: #ffffff; --shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* ── Header (matches gallery pages) ── */
+        .page-header { position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(26,69,103,0.08); padding: 0 2rem; height: 70px; display: flex; align-items: center; justify-content: space-between; z-index: 100; }
+        .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--primary); text-decoration: none; letter-spacing: 0.04em; white-space: nowrap; }
+        .nav-brand span { color: var(--secondary); font-style: italic; }
+        .back-link { color: var(--primary); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+        .back-link:hover { color: var(--secondary); }
+
+        /* ── Main ── */
+        .delivery-main { flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: 3.5rem 1.5rem 4rem; background: linear-gradient(180deg, #e8edf2 0%, var(--bg) 55%); }
+        .delivery-card { background: var(--white); border-radius: 16px; box-shadow: var(--shadow); max-width: 640px; width: 100%; padding: 3rem 2.5rem; text-align: center; }
+        .eyebrow { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary); font-weight: 600; margin-bottom: 0.9rem; }
+        .delivery-card h1 { font-size: 2.4rem; color: var(--primary); line-height: 1.2; margin-bottom: 1rem; }
+        .lede { font-size: 1.05rem; color: #4a6070; line-height: 1.8; margin: 0 auto 2rem; max-width: 480px; }
+
+        /* ── Session meta row ── */
+        .session-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 2.5rem; padding: 1.5rem 0; border-top: 1px solid #e4eaf0; border-bottom: 1px solid #e4eaf0; margin-bottom: 2.25rem; }
+        .meta-item { text-align: center; }
+        .meta-label { display: block; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: #8a9aaa; font-weight: 600; margin-bottom: 0.25rem; }
+        .meta-value { display: block; font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--primary); }
+
+        /* ── Download button (matches .btn-booking) ── */
+        .btn-download { display: inline-block; padding: 1.1rem 3rem; background: var(--secondary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.05rem; letter-spacing: 0.05em; transition: transform 0.3s, background 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(244,162,97,0.35); }
+        .btn-download:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(231,111,81,0.35); }
+        .how-to { font-size: 0.9rem; color: #6b7c8d; margin-top: 1.1rem; }
+
+        /* ── Notes ── */
+        .notes { margin-top: 2rem; background: #f4f7fa; border-left: 3px solid var(--secondary); border-radius: 8px; padding: 1.1rem 1.4rem; text-align: left; }
+        .note { font-size: 0.9rem; color: #4a6070; line-height: 1.7; }
+        .note + .note { margin-top: 0.5rem; }
+        .note strong { color: var(--primary); font-weight: 600; }
+        .help { font-size: 0.88rem; color: #8a9aaa; margin-top: 1.75rem; }
+        .help a { color: var(--primary); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(26,69,103,0.25); }
+        .help a:hover { color: var(--secondary); }
+
+        /* ── Footer ── */
+        footer { background: var(--primary); color: var(--white); padding: 2.25rem 2rem; text-align: center; font-size: 0.9rem; }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2rem; margin-bottom: 1.25rem; }
+        .footer-links a { color: var(--white); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--secondary); }
+        footer p a { color: var(--secondary); text-decoration: none; }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .page-header { padding: 0 1.25rem; height: 60px; }
+            .nav-brand { font-size: 1.05rem; }
+            .delivery-main { padding: 2rem 1rem 3rem; }
+            .delivery-card { padding: 2.25rem 1.4rem; border-radius: 14px; }
+            .delivery-card h1 { font-size: 1.85rem; }
+            .lede { font-size: 1rem; }
+            .session-meta { gap: 1.25rem 1.75rem; }
+            .btn-download { display: block; padding: 1rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <a href="https://harbourhues.ca/" class="nav-brand">Harbour <span>Hues</span> Media</a>
+        <a href="https://harbourhues.ca/" class="back-link">&larr; Home</a>
+    </header>
+
+    <main class="delivery-main">
+        <div class="delivery-card">
+            <p class="eyebrow">Your Gallery</p>
+            <h1>Your Photos Are Ready, Chris and Cintia!</h1>
+            <p class="lede">Thank you so much for choosing to work with me! Your Engagement photos from August 22, 2026 are edited, exported at full resolution, and ready to download.</p>
+
+            <div class="session-meta">
+                <div class="meta-item"><span class="meta-label">Session</span><span class="meta-value">Engagement</span></div>
+                <div class="meta-item"><span class="meta-label">Date</span><span class="meta-value">August 22, 2026</span></div>
+                <div class="meta-item"><span class="meta-label">Photos</span><span class="meta-value">52</span></div>
+            </div>
+
+            <a href="https://dropover.cloud/pxf191a4" class="btn-download" target="_blank" rel="noopener noreferrer">Download Your Photos</a>
+            <p class="how-to">No account or app needed. The link opens in any browser and works on desktop and mobile.</p>
+
+            <div class="notes">
+                <p class="note"><strong>Link expiry:</strong> This link stays active for 30 days, until September
+25, 2026. Please save your photos before then.</p>
+                <p class="note"><strong>Password:</strong> Sent separately in your delivery email. Reply to
+that email if you don&#39;t have it.</p>
+            </div>
+
+            <p class="help">Trouble with the link, or need a photo re-exported? Email <a href="mailto:hello@harbourhues.ca">hello@harbourhues.ca</a> and I'll sort it out.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://harbourhues.ca/">Home</a>
+            <a href="https://harbourhues.ca/feedback/">Leave Feedback</a>
+            <a href="https://shop.harbourhues.ca">Order Prints</a>
+            <a href="https://harbourhues.ca/booking/">Book a Session</a>
+        </div>
+        <p>&copy; 2026 Harbour Hues Media. Halifax, NS. <a href="mailto:hello@harbourhues.ca">hello@harbourhues.ca</a></p>
+    </footer>
+</body>
+</html>
